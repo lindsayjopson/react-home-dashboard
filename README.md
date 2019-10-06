@@ -2,7 +2,7 @@
 Personal Home Dashboard created with React & Parcel compiler.
 
 ## Installation
-`git clone https://github.com/lindsayjopson/dhome.git`
+`git clone https://github.com/lindsayjopson/react-home-dashboard.git`
 `npm install`
 `npm start`
 
