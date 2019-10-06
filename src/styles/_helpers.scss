@@ -1,0 +1,67 @@
+.float--left {
+  float: left;
+}
+
+.float--right {
+  float: right;
+}
+
+.margin--left {
+  margin-left: calc(#{$base-spacing} * 2);
+}
+
+.margin--top {
+  margin-top: calc(#{$base-spacing} * 2);
+}
+
+.margin--right {
+  margin-right: calc(#{$base-spacing} * 2);
+}
+
+.margin--bottom {
+  margin-bottom: $base-spacing;
+}
+
+.text--capitalize {
+  text-transform: capitalize;
+}
+
+.text--right {
+  text-align: right;
+}
+
+.text--red {
+  color: $red;
+}
+
+.text--green {
+  color: $green;
+}
+.underline {
+  padding-bottom: $base-spacing;
+  border-bottom: 2px solid $grey-light;
+}
+.text--lowercase {
+  text-transform: lowercase;
+}
+
+.no-scroll {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
+}
+
+.meta {
+  color: $grey;
+  font-size: 12px;
+}

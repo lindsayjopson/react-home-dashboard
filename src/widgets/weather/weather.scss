@@ -1,0 +1,17 @@
+.weather {
+  width: 200px;
+  position: relative;
+  .group-content {
+    padding: 2px !important;
+  }
+  .group {
+    padding-bottom: 0 !important;
+  }
+  .temp {
+    font-size: 45px;
+    font-weight: 600;
+    position: absolute;
+    right: 25px;
+    top: 55px;
+  }
+}

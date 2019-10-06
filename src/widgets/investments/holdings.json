@@ -1,0 +1,14 @@
+{
+  "crypto": {
+    "usd": 0,
+    "invested": 1000,
+    "coins": {
+      "btc-bitcoin": 1,
+      "eth-ethereum": 1
+    }
+  },
+  "shares": {
+    "total": 10000,
+    "performance": 16.07
+  }
+}

@@ -1,0 +1,8 @@
+.column {
+  width: 220px;
+  float: left;
+  position: relative;
+  &.double {
+    width: 300px;
+  }
+}

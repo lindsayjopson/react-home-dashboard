@@ -1,0 +1,101 @@
+body {
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  color: $white;
+  padding: 10px;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin-bottom: $base-spacing;
+  font-family: $heading-font-family;
+  font-weight: 600;
+  color: $white;
+  width: 100%;
+}
+
+h1 {
+  font-size: $h1-font-size;
+}
+
+h2,
+.h2 {
+  font-size: $h2-font-size;
+  color: $white;
+}
+
+h1,
+h2 {
+  margin-bottom: calc(#{$base-spacing} * 2);
+}
+
+h3,
+.h3 {
+  font-size: $h3-font-size;
+  color: $white;
+  line-height: 23px;
+}
+
+a {
+  color: $purple-lightest;
+  text-decoration: none;
+
+  &:visited {
+    color: $white;
+  }
+  &:focus {
+    outline: none;
+  }
+  &:hover {
+    transition: all 0.2s ease-out;
+    box-shadow: 0 -1px 0 0 white inset, 0 -2px 0 0 $purple-dark inset;
+    color: $purple-dark;
+  }
+}
+
+table {
+  width: 100%;
+  th,
+  td {
+    padding: $base-spacing;
+  }
+  th {
+    text-align: left;
+    background-color: $grey-light;
+    font-weight: bold;
+  }
+  tr {
+    padding: $base-spacing;
+    border: 1px solid $grey-light;
+  }
+}
+
+pre {
+  display: inline;
+  background: #f6f8fa;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 85%;
+  line-height: 1.45;
+  font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
+    monospace;
+  font-size: 12px;
+  color: $grey;
+}
+
+.background {
+  position: fixed;
+  min-width: 1200px;
+  width: 100%;
+  height: 100%;
+  min-height: 675px;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.row {
+  display: flex;
+}

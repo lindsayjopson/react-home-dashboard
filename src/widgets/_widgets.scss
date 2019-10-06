@@ -1,0 +1,50 @@
+@import "./investments/investments.scss";
+@import "./money/money.scss";
+@import "./soundcloud/soundcloud.scss";
+@import "./weather/weather.scss";
+@import "./countdown/countdown.scss";
+@import "./calendar/calendar.scss";
+@import "./datetime/datetime.scss";
+@import "./spending/spending.scss";
+
+.widget {
+  position: relative;
+  display: inline-block;
+  border-radius: 3px;
+  background-color: rgba($white, 0.3);
+  font-size: 13px;
+  font-weight: bold;
+  text-align: center;
+  color: $white;
+  letter-spacing: 1px;
+  margin: 0 15px 30px;
+  padding: 15px 0;
+
+  .heading {
+    padding-bottom: calc(#{$base-spacing} * 2);
+    border-bottom: 1px solid rgba($white, 0.5);
+    color: $white;
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  .group {
+    text-align: left;
+    padding: 18px 15px;
+    border-bottom: 1px solid rgba($white, 0.3);
+    position: relative;
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 3px;
+    }
+    .group-heading {
+      font-weight: 400;
+      opacity: 0.9;
+    }
+  }
+  .group-content {
+    font-size: 21px;
+    font-weight: 600;
+    padding: $base-spacing 0;
+  }
+}
