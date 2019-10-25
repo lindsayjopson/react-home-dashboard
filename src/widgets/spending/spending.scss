@@ -1,7 +1,5 @@
 .widget.spending {
-  padding-bottom: 0 !important;
-  width: 290px;
-  margin-bottom: 0;
+  min-width: 290px;
   .VictoryContainer {
     height: 300px;
     padding-left: 25px;

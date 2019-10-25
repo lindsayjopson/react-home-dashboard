@@ -1,8 +1,21 @@
-.column {
-  width: 220px;
-  float: left;
-  position: relative;
-  &.double {
-    width: 300px;
-  }
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.dashboard div.column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.dashboard div.row {
+  display: flex;
+  flex: 1 100%;
+  flex-direction: row wrap;
+  justify-content: space-around;
+  align-items: flex-start;
 }

@@ -13,29 +13,27 @@ import { DateTimeWidget } from "./widgets/datetime";
 import { SpendingWidget } from "./widgets/spending";
 
 const App = () => (
-  <>
+  <div className="dashboard">
+    
     <img className="background" src={background} />
     <DateTimeWidget />
+
     <div className="row">
       <div className="column">
         <WeatherWidget />
-      </div>
-      <div className="column">
         <MoneyWidget />
         <InvestmentWidget />
       </div>
-      <div className="column double">
+      <div className="column">
         <SpendingWidget />
-        <div className="column double">
-          <CountdownWidget />
-          <SoundcloudWidget />
-        </div>
+        <SoundcloudWidget />
       </div>
       <div className="column">
         <CalendarWidget />
+        <CountdownWidget />
       </div>
     </div>
-  </>
+  </div>
 );
 
 render(<App />, document.getElementById("root"));

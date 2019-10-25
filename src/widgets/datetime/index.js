@@ -26,7 +26,7 @@ export class DateTimeWidget extends React.Component {
     const year = new Date().getFullYear();
 
     return (
-      <div className="datetime">
+      <div className="widget datetime">
         <div className="time">{this.state.time}</div>
         <div className="date">{day} / {month} / {year}</div>
       </div>
