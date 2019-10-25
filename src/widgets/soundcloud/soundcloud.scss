@@ -1,8 +1,5 @@
 .widget.soundcloud {
-  padding-bottom: 0 !important;
-  margin-top: 60px !important;
-  position: absolute;
-  top: 30px;
-  width: 300px;
-  height: 115px;
+  width: calc(100% - 15px);
+  min-width: 300px;
+  min-height: 115px;
 }

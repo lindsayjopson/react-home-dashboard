@@ -1,8 +1,6 @@
 .countdown {
-  height: 115px;
-  width: 210px;
-  margin-top: 90px !important;
-  float: left;
+  min-height: 115px;
+  min-width: 210px;
   .count {
     font-size: 35px;
     font-weight: 400;
