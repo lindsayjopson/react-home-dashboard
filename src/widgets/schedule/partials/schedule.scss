@@ -1,0 +1,169 @@
+
+.rohan-schedule {
+  position: relative;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: .8em;
+  background: $color_background;
+  overflow-x: auto;
+  overflow-y: hidden;
+  cursor: pointer;
+  padding: 1rem 1rem !important;
+
+  ul { 
+    padding: 0;
+    margin: 0;
+  }
+  li { 
+    list-style-type: none;
+  }
+
+  p.dash {
+    width: 100%;
+    border-style: dashed;
+    border-color: black;
+    border-width: 0 0 1px 0;
+    margin-bottom: 1px;
+    padding-bottom: 1px;
+  }
+
+  /* Grid-related CSS */
+
+  .months  { grid-area: months; }
+  .days    { grid-area: days; }
+  .squares { grid-area: squares; }
+
+  .graph {
+    position: relative;
+    display: inline-grid;
+    grid-template-areas: "empty months"
+                         "days squares";
+    grid-template-columns: auto auto;
+    grid-template-rows: auto auto;
+    grid-gap: $square-gap;
+  }
+
+  .months {
+    display: grid;
+    grid-template-columns: calc(#{$week-width} * 4) /* Jan */
+                           calc(#{$week-width} * 4) /* Feb */
+                           calc(#{$week-width} * 4) /* Mar */
+                           calc(#{$week-width} * 5) /* Apr */
+                           calc(#{$week-width} * 4) /* May */
+                           calc(#{$week-width} * 4) /* Jun */
+                           calc(#{$week-width} * 5) /* Jul */
+                           calc(#{$week-width} * 4) /* Aug */
+                           calc(#{$week-width} * 4) /* Sep */
+                           calc(#{$week-width} * 5) /* Oct */
+                           calc(#{$week-width} * 4) /* Nov */
+                           calc(#{$week-width} * 5) /* Dec */;
+    margin-bottom: .25rem;
+  }
+
+  .days,
+  .squares {
+    display: grid;
+    grid-gap: $square-gap;
+    grid-template-rows: repeat(7, $square-size);
+    text-align: left;
+  }
+
+  .squares {
+    grid-auto-flow: column;
+    grid-auto-columns: $square-size;
+  }
+
+  /* Other styling */
+
+  .graph {
+    padding: .5em;
+    margin: 0;
+  }
+
+  .squares li {
+    position: relative;
+    font-size: .5rem;
+    background-color: $color_neutral;
+    transform-origin: left center;
+    overflow: hidden;
+
+    > div {
+      position: absolute;
+      top: 0;
+      opacity: 0;
+      padding: .0625rem;
+      overflow: hidden;
+    }
+
+    &[data-pos ^= "3-0"], &[data-pos ^= "2-0"] {
+      transform-origin: left center;
+    }
+
+    &[data-pos ^= "3-1"], &[data-pos ^= "2-1"] {
+      transform-origin: right center;
+    }
+
+    &[data-pos ^= "0-0"], &[data-pos ^= "1-0"] {
+      transform-origin: left top;
+    }
+    &[data-pos ^= "0-1"], &[data-pos ^= "1-1"] {
+      transform-origin: right top;
+    }
+
+    &[data-pos ^= "4-0"], &[data-pos ^= "5-0"], &[data-pos ^= "6-0"] {
+      transform-origin: left bottom;
+    }
+    &[data-pos ^= "4-1"], &[data-pos ^= "5-1"], &[data-pos ^= "6-1"] {
+      transform-origin: right bottom;
+    }
+
+    &:active {
+      z-index: 5;
+      transform: scale(8);
+      transition: all .3s;
+      &:hover {
+        box-shadow: unset;
+      }
+      > div {
+        font-size: .15em;
+        line-height: 1.5em;
+        display: inline-block;
+        opacity: 1;
+        overflow: hidden;
+      }
+    }
+
+    &:hover {
+      box-shadow: 0 0 1px 1px $color_highlight;
+    }
+
+    &.today {
+      box-shadow: 0 0 1px 1px $color_highlight;
+      &:active {
+        box-shadow: unset;
+      }
+    }
+  }
+
+  .squares li[data-level="-1"] {
+    background-color: $color_blank;
+    &:hover {
+      transition: none;
+    }
+  }
+
+  .squares li[data-level="0"] {
+    background-color: $color_neutral;
+  }
+
+  .squares li[data-level="1"] {
+    background-color: $color_level1;
+  }
+
+  .squares li[data-level="2"] {
+    background-color: $color_level2;
+  }
+
+  .squares li[data-level="3"] {
+    background-color: $color_level3;
+  }
+}

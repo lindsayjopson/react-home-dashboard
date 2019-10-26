@@ -1,0 +1,18 @@
+/* Article - https://bitsofco.de/github-contribution-graph-css-grid/ */
+
+$square-size: 1em;
+$square-gap: .25em;
+$week-width: 1.25em;
+
+$color_background: black; // white;
+$color_highlight: teal;
+$color_neutral: #ebedf0;
+$color_blank: transparent;
+$color_level0: #ebedf0;
+$color_level1: #c6e48b;
+$color_level2: #7bc96f;
+$color_level3: #196127;
+
+@import 'partials/schedule';
+
+@import 'partials/schedule-phone';

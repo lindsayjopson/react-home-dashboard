@@ -1,0 +1,81 @@
+
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+/* Portrait */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) { 
+
+    .rohan-schedule {
+      overflow: hidden;
+      text-align: center;
+
+      .graph {
+        grid-template-areas: "days empty"
+                             "squares months";
+        grid-template-columns: 1fr auto;
+        grid-template-rows: 1fr auto;
+        grid-gap: $square-gap;
+      }
+
+      .months {
+        display: grid;
+        grid-template-rows: calc(#{$week-width} * 4) /* Jan */
+                               calc(#{$week-width} * 4) /* Feb */
+                               calc(#{$week-width} * 4) /* Mar */
+                               calc(#{$week-width} * 5) /* Apr */
+                               calc(#{$week-width} * 4) /* May */
+                               calc(#{$week-width} * 4) /* Jun */
+                               calc(#{$week-width} * 5) /* Jul */
+                               calc(#{$week-width} * 4) /* Aug */
+                               calc(#{$week-width} * 4) /* Sep */
+                               calc(#{$week-width} * 5) /* Oct */
+                               calc(#{$week-width} * 4) /* Nov */
+                               calc(#{$week-width} * 5) /* Dec */;
+        grid-auto-flow: column;
+        grid-template-columns: 1fr;
+
+        span {
+          position: relative;
+          display: inline-block;
+          transform-origin: left bottom;
+        }
+      }
+    
+      .days {
+        display: grid;
+        grid-gap: $square-gap;
+        grid-template-columns: repeat(7, $square-size);
+        grid-auto-flow: row;
+        grid-template-rows: repeat(2, $square-size);
+      }
+      .days {
+        span {
+          position: relative;
+          display: inline-block;
+          transform-origin: left bottom;
+          transform: rotate(90deg);
+          top: -1em;
+        }
+      }
+    
+      .squares {
+        grid-template-columns: repeat(7, $square-size);
+        display: grid;
+        grid-auto-flow: row;
+        grid-auto-rows: $square-size;
+      }
+    }
+
+}
+
+/* ----------- iPhone 6+, 7+ and 8+ ----------- */
+/* Portrait */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3)
+  and (orientation: portrait) { 
+
+}

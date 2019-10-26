@@ -1,8 +1,8 @@
 .dashboard {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
+  display: grid;
+  grid-gap: 7.5px;
+  width: 100%;
+  overflow: auto;
 }
 
 .dashboard div.column {
@@ -10,12 +10,30 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  justify-self: start;
 }
 
 .dashboard div.row {
   display: flex;
   flex: 1 100%;
-  flex-direction: row wrap;
+  flex-direction: row;
   justify-content: space-around;
   align-items: flex-start;
+  justify-self: start;
+}
+
+@media (max-width: 600px) {
+  .dashboard div.column {
+    display: block;
+    width: 100vw;
+  }
+  
+  .dashboard div.row {
+    display: block;
+    width: 100vw;
+  }
+
+  .dashboard .widget {
+    display: block !important;
+  }
 }

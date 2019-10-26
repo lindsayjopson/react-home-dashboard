@@ -6,6 +6,7 @@
 @import "./calendar/calendar.scss";
 @import "./datetime/datetime.scss";
 @import "./spending/spending.scss";
+@import "./schedule/schedule.scss";
 
 .widget {
   position: relative;
@@ -16,7 +17,6 @@
   font-weight: bold;
   text-align: center;
   color: $white;
-  letter-spacing: 1px;
   margin: 7.5px 7.5px 7.5px 7.5px;
   padding: 15px 0;
 

@@ -1,8 +1,12 @@
+html {
+  width: 100vw;
+}
+
 body {
   font-family: $base-font-family;
   font-size: $base-font-size;
   color: $white;
-  padding: 10px;
+  width: 100vw;
 }
 
 h1,

@@ -12,11 +12,17 @@ import { CountdownWidget } from "./widgets/countdown";
 import { DateTimeWidget } from "./widgets/datetime";
 import { SpendingWidget } from "./widgets/spending";
 
+import { ScheduleWidget } from "./widgets/schedule";
+
 const App = () => (
   <div className="dashboard">
     
     <img className="background" src={background} />
     <DateTimeWidget />
+
+    <div className="row">
+      <ScheduleWidget cals={['https://bloodynipples.com/2019.ics']} />
+    </div>
 
     <div className="row">
       <div className="column">
@@ -33,6 +39,7 @@ const App = () => (
         <CountdownWidget />
       </div>
     </div>
+
   </div>
 );
 
