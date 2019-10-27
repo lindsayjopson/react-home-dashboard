@@ -1,15 +1,8 @@
 import React from "react";
-import { Http } from './http';
-import { CalendarParser } from './parser';
+import { Http } from '../../common/http';
+import { CalendarParser } from '../../common/icalparser';
 
-const formatDateLookup = (date) => {
-  if (!date) return '';
-  return [
-    date.getFullYear(),
-    ('0' + (date.getMonth() + 1)).slice(-2),
-    ('0' + date.getDate()).slice(-2)
-  ].join('');
-};
+import { formatDateLookup, formatDateDisplay } from '../../common/dates';
 
 const parseCalendars = (calendars) => {
   return new Promise( (resolve, reject) => {
@@ -45,21 +38,54 @@ export class ScheduleWidget extends React.Component {
     parseCalendars(this.cals).then(cals => {
       cals.calendar.events.forEach( event => {
         const dateKey = formatDateLookup(event.date);
-        if(!this.state.eventStore[dateKey]) {
-          this.state.eventStore[dateKey] = [];
-        }
-        let events = this.state.eventStore[dateKey];
+        const evtStore = this.state.eventStore;
+        if(!evtStore[dateKey]) evtStore[dateKey] = [];
+
+        let events = evtStore[dateKey];
         events.push(event);
-        this.state.eventStore[dateKey] = events;
-  
-        // this.setState({ value: this.textInput.current.value})
+        evtStore[dateKey] = events;
+
         const node = this.squareRef.current.querySelector('#D' + dateKey + " > div");
         const txt = events.map(d => `<p class='dash'>${d.summary}<br/>${d.description}</p>`);
         if(node) {
           node.innerHTML = txt.join('');
         }
       });
+
+      const today = formatDateLookup(new Date());
+      const msg = {
+        type: 'SCHEDULE_SELECT_DAY',
+        payload: this.state.eventStore[today] || [{
+          date: new Date(),
+          summary: "No Events"
+        }]
+      };
+      this.props.store.dispatch(msg);
     });
+  }
+
+  onTouchHandler(store) {
+    return (e) => {
+      const id = e.currentTarget.id.toString().replace('D','');
+      const date = e.currentTarget.getAttribute('data-date').toString();
+      if(id) {
+        const events = this.state.eventStore[id];
+        if(events) {
+          store.dispatch({
+            type: 'SCHEDULE_SELECT_DAY',
+            payload: events
+          });
+        } else {
+          store.dispatch({
+            type: 'SCHEDULE_SELECT_DAY',
+            payload: [{
+              date: new Date(date),
+              summary: "No Events"
+            }]
+          });
+        }
+      }
+    }
   }
 
   createCalendar(startDate, iterateDate) {
@@ -81,7 +107,9 @@ export class ScheduleWidget extends React.Component {
             className={(today === date) ? 'today' : ''}
             data-level={level}
             data-pos={(i % 7) + "-" + (Math.max(0, i - 181) > 0 ? 1 : 0)}
-            title={iterateDate.toDateString()}><div></div>
+            data-date={iterateDate.toUTCString()}
+            title={iterateDate.toDateString()}
+            onClick={this.onTouchHandler(this.props.store)}><div></div>
           </li>
         );
         iterateDate.setDate(iterateDate.getDate() + 1);
@@ -95,8 +123,6 @@ export class ScheduleWidget extends React.Component {
     const iterateDate = new Date();
     iterateDate.setTime(startDate.getTime());
     this.createCalendar(startDate, iterateDate)
-
-    console.log(this.state.table);
 
     return (
       <div className="widget rohan-schedule">
@@ -126,6 +152,41 @@ export class ScheduleWidget extends React.Component {
           </ul>
           <ul className="squares" ref={this.squareRef}>{this.state.table}</ul>
         </div>
+      </div>
+    );
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+export class ScheduleDayWidget extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { text: [] };
+    this.sub = this.props.store.subscribe(state => {
+      if(state) {
+        this.setState({ text: state.schedule.day });
+      }
+    })
+  }
+
+  componentWillUnmount() {
+    // un this.sub
+  }
+
+  render() {
+    return (
+      <div className="widget schedule-day">
+        <div className="heading"><span>{
+          this.state.text &&
+          this.state.text.length &&
+          formatDateDisplay(this.state.text[0].date)
+        }</span></div>
+        <div>{
+          this.state.text &&
+          this.state.text.length &&
+          this.state.text.map(e => <p key={Math.random()}>{e.summary}</p>)
+        }</div>
       </div>
     );
   }

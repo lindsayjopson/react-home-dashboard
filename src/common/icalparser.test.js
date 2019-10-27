@@ -1,4 +1,4 @@
-import { CalendarParser } from './parser';
+import { CalendarParser } from './icalparser';
 
 const testFile = `BEGIN:VCALENDAR
 VERSION:2.0

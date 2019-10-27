@@ -12,39 +12,49 @@ import { CountdownWidget } from "./widgets/countdown";
 import { DateTimeWidget } from "./widgets/datetime";
 import { SpendingWidget } from "./widgets/spending";
 
-import { ScheduleWidget } from "./widgets/schedule";
+import { ScheduleWidget, ScheduleDayWidget } from "./widgets/schedule";
 
-const App = () => (
-  <div className="dashboard">
-    
-    <img className="background" src={background} />
-    <DateTimeWidget />
+import { createStore, rootReducer } from "./common/robdux";
 
-    <div className="row">
-      <ScheduleWidget cals={['https://bloodynipples.com/2019.ics']} />
+const App = () => {
+  const store = createStore(rootReducer, {});
+
+  return (
+    <div className="dashboard">
+      
+      <img className="background" src={background} />
+      <DateTimeWidget />
+
+      <div className="row">
+        <ScheduleWidget 
+          cals={['https://bloodynipples.com/2019.ics']} 
+          store={store}
+        />
+      </div>
+
+      <div className="row">
+        <div className="column">
+          <WeatherWidget />
+          <MoneyWidget />
+          <InvestmentWidget />
+        </div>
+        <div className="column">
+          <SpendingWidget />
+          <SoundcloudWidget />
+        </div>
+        <div className="column">
+          {/* <CalendarWidget /> */}
+          <ScheduleDayWidget store={store} />
+          <CountdownWidget />
+        </div>
+      </div>
+
     </div>
-
-    <div className="row">
-      <div className="column">
-        <WeatherWidget />
-        <MoneyWidget />
-        <InvestmentWidget />
-      </div>
-      <div className="column">
-        <SpendingWidget />
-        <SoundcloudWidget />
-      </div>
-      <div className="column">
-        <CalendarWidget />
-        <CountdownWidget />
-      </div>
-    </div>
-
-  </div>
-);
+  );
+}
 
 render(<App />, document.getElementById("root"));
 
-if (module.hot) {
-  module.hot.accept();
-}
+// if (module.hot) {
+//   module.hot.accept();
+// }
