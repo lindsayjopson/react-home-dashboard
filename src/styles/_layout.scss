@@ -37,3 +37,19 @@
     display: block !important;
   }
 }
+
+@media (min-width: 1030px) {
+  .dashboard {
+    max-width: 1024px;
+    margin: auto;
+  }
+  .dashboard div.column {
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+  }
+  .dashboard div.row {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
