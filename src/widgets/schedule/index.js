@@ -47,11 +47,14 @@ export class ScheduleWidget extends React.Component {
         events.push(event);
   
         const li = this.squareRef.current.querySelector('#D' + dateKey);
-        const node = li.querySelector("div");
-        const txt = events.map(d => `<p class='dash'>${d.summary}<br/>${d.description}</p>`);
-        if(node) {
-          li.setAttribute('data-level', Math.min(events.length, 3));
-          node.innerHTML = txt.join('');
+        // Can be a date beyond the displayed year
+        if(li) {
+          const node = li.querySelector("div");
+          const txt = events.map(d => `<p class='dash'>${d.summary}<br/>${d.description}</p>`);
+          if(node) {
+            li.setAttribute('data-level', Math.min(events.length, 3));
+            node.innerHTML = txt.join('');
+          }
         }
       });
   
