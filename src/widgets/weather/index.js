@@ -1,16 +1,18 @@
 import React from "react";
+import { Http } from "../../common/http";
+import { weekdays, humanDays } from "../../common/dates";
 
-const request = require("request");
-const OPEN_WEATHER_API = "12345"; //get Openweather api from https://openweathermap.org/api
-const getWeather = () => {
-  return new Promise((resolve, reject) => {
-    const request_url = `http://api.openweathermap.org/data/2.5/forecast?id=2193734&appid=${OPEN_WEATHER_API}&units=metric`;
-    request.get(request_url, (err, resp, body) => {
-      if (err) reject(err);
-      let data = JSON.parse(body);
-      let response = [data.list[1], data.list[9], data.list[17]];
-      resolve(response);
-    });
+//get Openweather api from https://openweathermap.org/api
+const getWeather = (key, location, units) => {
+  const http = new Http();
+  const request_url = `http://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${key}&units=${units}`;
+
+  return http.fetch(request_url).then(data => {
+    if(typeof data === 'string') {
+      data = JSON.parse(data)
+    }
+    let response = [data.list[1], data.list[9], data.list[17]];
+    return response;
   });
 };
 
@@ -19,29 +21,33 @@ export class WeatherWidget extends React.Component {
     super(props);
 
     this.state = {
+      location: '',
       weather: []
     };
   }
 
   componentDidMount() {
+    const ns = this.props.store.getState().dashboard.widgets.weather;
+    // Who needs error handling?
+    this.setState({ location: ns.location.split(',')[0] });
+
     this.mounted = true;
     if (this.mounted) {
-      getWeather()
-        .then(weatherData => {
-          weatherData.map(day => {
-            const dayObj = {
-              day: new Date(day.dt_txt).getDay() - 1,
-              temp: day.main.temp,
-              icon: day.weather[0].icon
-            };
-            this.setState({
-              arr: this.state.weather.push(dayObj)
-            });
+      getWeather(ns.api_key, ns.location, ns.units).then(weatherData => {
+        weatherData.map(day => {
+          const dayObj = {
+            day: new Date(day.dt_txt).getDay() - 1,
+            temp: day.main.temp,
+            icon: day.weather[0].icon
+          };
+          this.setState({
+            arr: this.state.weather.push(dayObj)
           });
-        })
-        .catch(error => {
-          console.log(`Encountered error: `, error);
         });
+      })
+      .catch(error => {
+        console.log(`Encountered error: `, error);
+      });
     }
   }
 
@@ -52,25 +58,14 @@ export class WeatherWidget extends React.Component {
   render() {
     const weatherData = this.state.weather;
 
-    const weekdays = [
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-      "Sunday"
-    ];
-    const humanText = ["Today", "Tomorrow"];
-
     return (
       <div className="widget weather">
-        <div className="heading">Weather</div>
+        <div className="heading">{this.state.location} Weather</div>
 
         {weatherData.map((day, index) => (
           <div className="group" key={index}>
             <div className="group-heading">
-              {index < 2 ? humanText[index] : weekdays[day.day]}
+              {index < 2 ? humanDays[index] : weekdays[day.day]}
             </div>
             <div className="group-content">
               <img

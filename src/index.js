@@ -7,17 +7,18 @@ import { InvestmentWidget } from "./widgets/investments";
 import background from "./assets/background.jpeg";
 import { SoundcloudWidget } from "./widgets/soundcloud";
 import { WeatherWidget } from "./widgets/weather";
-import { CalendarWidget } from "./widgets/calendar";
+// import { CalendarWidget } from "./widgets/calendar";
 import { CountdownWidget } from "./widgets/countdown";
 import { DateTimeWidget } from "./widgets/datetime";
-import { SpendingWidget } from "./widgets/spending";
+// import { SpendingWidget } from "./widgets/spending";
 
 import { ScheduleWidget, ScheduleDayWidget } from "./widgets/schedule";
 
 import { createStore, rootReducer } from "./common/robdux";
+import Config from './config';
 
 const App = () => {
-  const store = createStore(rootReducer, {});
+  const store = createStore(rootReducer, Config);
 
   return (
     <div className="dashboard">
@@ -26,35 +27,33 @@ const App = () => {
       <DateTimeWidget />
 
       <div className="row">
-        <ScheduleWidget 
-          cals={['https://bloodynipples.com/2019.ics']} 
-          store={store}
-        />
+        <ScheduleWidget store={store} />
       </div>
 
       <div className="row">
         <div className="column">
-          <WeatherWidget />
-          <MoneyWidget />
-          <InvestmentWidget />
+          <WeatherWidget store={store} />
         </div>
         <div className="column">
-          <SpendingWidget />
-          <SoundcloudWidget />
+          <div className="row">
+            <MoneyWidget store={store} />
+            <InvestmentWidget store={store} />
+          </div>
+          {/* <SpendingWidget /> */}
+          <SoundcloudWidget store={store} />
         </div>
         <div className="column">
-          {/* <CalendarWidget /> */}
           <ScheduleDayWidget store={store} />
-          <CountdownWidget />
+          <CountdownWidget store={store} />
+          {/* <CalendarWidget /> */}
         </div>
       </div>
-
     </div>
   );
 }
 
 render(<App />, document.getElementById("root"));
 
-// if (module.hot) {
-//   module.hot.accept();
-// }
+if (module.hot) {
+  module.hot.accept();
+}

@@ -1,4 +1,15 @@
 
+export const weekdays = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
+];
+export const humanDays = ["Today", "Tomorrow"];
+
 export const formatDateLookup = (date) => {
   if (!date) return '';
   return [

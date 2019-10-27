@@ -1,8 +1,6 @@
-
 .rohan-schedule {
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  font-size: .8em;
+  font-size: .8rem;
   background: $color_background;
   overflow-x: auto;
   overflow-y: hidden;
@@ -83,7 +81,7 @@
     position: relative;
     font-size: .5rem;
     background-color: $color_neutral;
-    transform-origin: left center;
+    transform-origin: center center;
     overflow: hidden;
 
     > div {
@@ -94,32 +92,29 @@
       overflow: hidden;
     }
 
-    &[data-pos ^= "3-0"], &[data-pos ^= "2-0"] {
-      transform-origin: left center;
-    }
+    // &[data-pos ^= "3-0"], &[data-pos ^= "2-0"] {
+    //   transform-origin: left center;
+    // }
 
-    &[data-pos ^= "3-1"], &[data-pos ^= "2-1"] {
-      transform-origin: right center;
-    }
+    // &[data-pos ^= "3-1"], &[data-pos ^= "2-1"] {
+    //   transform-origin: right center;
+    // }
 
-    &[data-pos ^= "0-0"], &[data-pos ^= "1-0"] {
-      transform-origin: left top;
-    }
-    &[data-pos ^= "0-1"], &[data-pos ^= "1-1"] {
-      transform-origin: right top;
-    }
+    // &[data-pos ^= "0-0"], &[data-pos ^= "1-0"] {
+    //   transform-origin: left top;
+    // }
+    // &[data-pos ^= "0-1"], &[data-pos ^= "1-1"] {
+    //   transform-origin: right top;
+    // }
 
-    &[data-pos ^= "4-0"], &[data-pos ^= "5-0"], &[data-pos ^= "6-0"] {
-      transform-origin: left bottom;
-    }
-    &[data-pos ^= "4-1"], &[data-pos ^= "5-1"], &[data-pos ^= "6-1"] {
-      transform-origin: right bottom;
-    }
+    // &[data-pos ^= "4-0"], &[data-pos ^= "5-0"], &[data-pos ^= "6-0"] {
+    //   transform-origin: left bottom;
+    // }
+    // &[data-pos ^= "4-1"], &[data-pos ^= "5-1"], &[data-pos ^= "6-1"] {
+    //   transform-origin: right bottom;
+    // }
 
     &:active {
-      z-index: 5;
-      transform: scale(8);
-      transition: all .3s;
       &:hover {
         box-shadow: unset;
       }
@@ -137,7 +132,10 @@
     }
 
     &.today {
-      box-shadow: 0 0 1px 1px $color_highlight;
+      box-shadow: 0 0 1px 1px $color_today;
+      background: $color_neutral;
+      z-index: 5;
+      animation: pulse 3s ease-in-out infinite;
       &:active {
         box-shadow: unset;
       }
@@ -165,5 +163,17 @@
 
   .squares li[data-level="3"] {
     background-color: $color_level3;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background: $color_neutral;
+  }
+  50% {
+    background: $color_today;
+  }
+  100% {
+    background: $color_neutral;
   }
 }

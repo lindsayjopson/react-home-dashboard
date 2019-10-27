@@ -1,10 +1,10 @@
 import React from "react";
 import { Http } from '../../common/http';
 import { CalendarParser } from '../../common/icalparser';
-
 import { formatDateLookup, formatDateDisplay } from '../../common/dates';
 
 const parseCalendars = (calendars) => {
+  if(!calendars) return;
   return new Promise( (resolve, reject) => {
     const parser = new CalendarParser();
     const http = new Http();
@@ -26,32 +26,35 @@ const parseCalendars = (calendars) => {
 export class ScheduleWidget extends React.Component {
   constructor(props) {
     super(props);
-    this.cals = props.cals;
+    const s = this.props.store.getState();
     this.state = {
       eventStore: {},
       table: [],
+      cals: s.dashboard.widgets.schedule.cals,
+      year: s.dashboard.widgets.schedule.year
     };
     this.squareRef = React.createRef()
   }
 
   componentDidMount() {
-    parseCalendars(this.cals).then(cals => {
+    parseCalendars(this.state.cals).then(cals => {
       cals.calendar.events.forEach( event => {
         const dateKey = formatDateLookup(event.date);
         const evtStore = this.state.eventStore;
         if(!evtStore[dateKey]) evtStore[dateKey] = [];
-
+  
         let events = evtStore[dateKey];
         events.push(event);
-        evtStore[dateKey] = events;
-
-        const node = this.squareRef.current.querySelector('#D' + dateKey + " > div");
+  
+        const li = this.squareRef.current.querySelector('#D' + dateKey);
+        const node = li.querySelector("div");
         const txt = events.map(d => `<p class='dash'>${d.summary}<br/>${d.description}</p>`);
         if(node) {
+          li.setAttribute('data-level', Math.min(events.length, 3));
           node.innerHTML = txt.join('');
         }
       });
-
+  
       const today = formatDateLookup(new Date());
       const msg = {
         type: 'SCHEDULE_SELECT_DAY',
@@ -118,11 +121,11 @@ export class ScheduleWidget extends React.Component {
   }
 
   render() {
-    const year = 2019;
+    const year = this.state.year;
     const startDate = new Date(year, 0, 1);
     const iterateDate = new Date();
     iterateDate.setTime(startDate.getTime());
-    this.createCalendar(startDate, iterateDate)
+    this.createCalendar(startDate, iterateDate);
 
     return (
       <div className="widget rohan-schedule">
@@ -163,15 +166,15 @@ export class ScheduleDayWidget extends React.Component {
   constructor(props) {
     super(props);
     this.state = { text: [] };
-    this.sub = this.props.store.subscribe(state => {
-      if(state) {
-        this.setState({ text: state.schedule.day });
+    this.sub = this.props.store.subscribe( (s,a) => {
+      if(s && a === 'SCHEDULE_SELECT_DAY') {
+        this.setState({ text: s.dashboard.widgets.schedule.data.day });
       }
-    })
+    });
   }
 
   componentWillUnmount() {
-    // un this.sub
+    this.store.subscribe(this.sub);
   }
 
   render() {

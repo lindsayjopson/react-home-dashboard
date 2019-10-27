@@ -1,16 +1,13 @@
 import React from "react";
-const fs = require("fs");
-const request = require("request");
-const _ = require("underscore");
+import { Http } from "../../common/http";
 
 const get_coin = coin => {
-  return new Promise((resolve, reject) => {
-    const request_url = `https://api.coinpaprika.com/v1/tickers/${coin}?quotes=USD`;
-    request.get(request_url, (err, resp, body) => {
-      if (err) reject(err);
-      let data = JSON.parse(body);
-      resolve(data);
-    });
+  const http = new Http();
+  const request_url = `https://api.coinpaprika.com/v1/tickers/${coin}?quotes=USD`;
+
+  return http.fetch(request_url).then(v => {
+    if(typeof v === 'string') v = JSON.parse(v);
+    return v;
   });
 };
 
@@ -63,10 +60,13 @@ export class InvestmentWidget extends React.Component {
     };
   }
 
-  componentDidMount() {
-    let holdings = JSON.parse(
-      fs.readFileSync("./src/widgets/investments/holdings.json", "utf8")
-    );
+  async componentDidMount() {
+    const ns = this.props.store.getState().dashboard.widgets.investments;
+    const http = new Http();
+    let holdings = await http.fetch(ns.holdings).then(v => {
+      if(typeof v === 'string') v = JSON.parse(v);
+      return v;
+    });
 
     compute_portfolio(holdings)
       .then(portfolio => {

@@ -7,6 +7,8 @@ body {
   font-size: $base-font-size;
   color: $white;
   width: 100vw;
+  font-smooth: always;
+  -webkit-font-smoothing: antialiased;
 }
 
 h1,

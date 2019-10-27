@@ -23,7 +23,6 @@
     "react-dom": "^16.9.0",
     "request": "^2.83.0",
     "sass": "^1.22.10",
-    "underscore": "^1.8.3",
     "victory": "^33.1.0"
   },
   "devDependencies": {

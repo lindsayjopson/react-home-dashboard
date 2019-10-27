@@ -1,5 +1,5 @@
 import React from "react";
-const fs = require("fs");
+import { Http } from "../../common/http";
 
 export class MoneyWidget extends React.Component {
   constructor(props) {
@@ -11,16 +11,18 @@ export class MoneyWidget extends React.Component {
       savings: 0
     };
   }
+
   componentDidMount() {
-    let holdings = JSON.parse(
-      fs.readFileSync("./src/widgets/money/holdings.json", "utf8")
-    );
-    this.setState({
-      debt: holdings.debt,
-      spendable: holdings.spendable,
-      savings: holdings.savings
+    const http = new Http();
+    const ns = this.props.store.getState().dashboard.widgets.money;
+    http.fetch(ns.holdings).then(v => {
+      if(typeof v === 'string') {
+        v = JSON.parse(v)
+      }
+      this.setState(v);
     });
   }
+
   render() {
     return (
       <div className="widget money">

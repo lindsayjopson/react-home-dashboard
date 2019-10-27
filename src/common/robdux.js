@@ -11,33 +11,30 @@ export function createStore(initialReducer, initialState = {}, enhancer) {
     },
     dispatch(action) {
       state = reducer(state, action);
-      subscribers.forEach(subscriber => subscriber(state));
+      subscribers.forEach(subscriber => { if(subscriber) subscriber(state, action.type || '') });
     },
     subscribe(listener) {
+      if(subscribers.includes(listener)) {
+        return undefined;
+      }
       subscribers.push(listener);
-      return () => {
-        subscribers = subscribers.filter(subscriber => subscriber !== listener);
-      };
+      return listener;
     },
-    replaceReducer(newReducer) {
-      reducer = newReducer;
-      this.dispatch({ type: '__REPLACE__' });
+    unsubscribe(listener) {
+      const idx = subscribers.indexOf(listener);
+      delete subscribers[idx];
     }
   };
 }
 
+// Live dangerously. Don't Object.assign({}, s) it modify it in place - whoohooo
 export function rootReducer(s, a) {
   switch(a.type) {
     case "__INIT__":
       return s;
-    case "__REPLACE__":
-      return s;
     case "SCHEDULE_SELECT_DAY":
-        return Object.assign(s, {
-          schedule: {
-            day: a.payload
-          }
-        });
+      s.dashboard.widgets.schedule.data.day = a.payload;
+      return s;
   }
   return s;
 }

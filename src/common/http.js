@@ -4,6 +4,7 @@ export class Http {
     return this.xhr(url, method, headers);
   }
 
+  // bit old school.
   xhr(url, method = 'GET', body = undefined, headers = {}) {
     return new Promise( (resolve, reject) => {
       const xhr = new XMLHttpRequest();

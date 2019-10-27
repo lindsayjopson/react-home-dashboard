@@ -1,7 +1,17 @@
 import React from "react";
 
 export class SoundcloudWidget extends React.Component {
+  constructor(props) {
+    super(props);
+    const ns = this.props.store.getState().dashboard.widgets.soundcloud;
+    this.state = {
+      playlist: encodeURIComponent(ns.playlist)
+    }
+  }
+
   render() {
+    const playlistUrl = `https://w.soundcloud.com/player/?url=${this.state.playlist}&color=%23ff5500&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true`
+
     return (
       <div className="widget soundcloud">
         <div className="heading">Music</div>
@@ -10,7 +20,7 @@ export class SoundcloudWidget extends React.Component {
           height="100"
           scrolling="no"
           allow="autoplay"
-          src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/playlists/205051568&color=%23ff5500&auto_play=false&hide_related=false&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=true"
+          src={ playlistUrl }
         ></iframe>
       </div>
     );

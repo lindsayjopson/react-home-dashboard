@@ -3,13 +3,16 @@ import React from "react";
 export class CountdownWidget extends React.Component {
   constructor(props) {
     super(props);
+    const s = this.props.store.getState();
+    const ns = s.dashboard.widgets.countdown;
 
-    const then = new Date(2019, 12, 15);
+    const then =  ns.date;
     const today = new Date();
 
     const count = Math.abs(Math.round((today - then) / (1000 * 60 * 60 * 24)));
 
     this.state = {
+      title: ns.event,
       count: count
     };
   }
@@ -31,7 +34,7 @@ export class CountdownWidget extends React.Component {
   render() {
     return (
       <div className="widget countdown">
-        <div className="heading">Christmas Party</div>
+        <div className="heading">{this.state.title}</div>
         <div className="count">{this.state.count}</div>
         <div className="meta">Days</div>
       </div>
