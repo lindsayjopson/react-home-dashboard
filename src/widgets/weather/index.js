@@ -5,7 +5,7 @@ import { weekdays, humanDays } from "../../common/dates";
 //get Openweather api from https://openweathermap.org/api
 const getWeather = (key, location, units) => {
   const http = new Http();
-  const request_url = `http://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${key}&units=${units}`;
+  const request_url = `https://api.openweathermap.org/data/2.5/forecast?q=${location}&appid=${key}&units=${units}`;
 
   return http.fetch(request_url).then(data => {
     if(typeof data === 'string') {

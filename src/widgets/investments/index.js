@@ -1,9 +1,9 @@
 import React from "react";
 import { Http } from "../../common/http";
 
-const get_coin = coin => {
+const get_coin = (coin, currency) => {
   const http = new Http();
-  const request_url = `https://api.coinpaprika.com/v1/tickers/${coin}?quotes=USD`;
+  const request_url = `https://api.coinpaprika.com/v1/tickers/${coin}?quotes=${currency}`;
 
   return http.fetch(request_url).then(v => {
     if(typeof v === 'string') v = JSON.parse(v);
@@ -11,18 +11,19 @@ const get_coin = coin => {
   });
 };
 
-const compute_portfolio = holdings => {
+const compute_portfolio = (holdings, currency) => {
   return new Promise((resolve, reject) => {
     let coins = {};
     let total_coins = Object.keys(holdings.crypto.coins).length;
     let total_portfolio_value = 0;
     for (let coin in holdings.crypto.coins) {
-      get_coin(coin)
+      get_coin(coin, currency)
         .then(coin_data => {
           coins[coin_data.symbol] = coin_data;
-          let coin_value =
-            parseFloat(coin_data.quotes.NZD.price) *
-            holdings.crypto.coins[coin];
+          
+          const price = parseFloat(coin_data.quotes[currency].price || 0);
+
+          let coin_value = price * holdings.crypto.coins[coin];
           coins[coin_data.symbol].coin_value = coin_value;
           total_portfolio_value += coin_value;
 
@@ -68,7 +69,7 @@ export class InvestmentWidget extends React.Component {
       return v;
     });
 
-    compute_portfolio(holdings)
+    compute_portfolio(holdings, ns.currency)
       .then(portfolio => {
         this.setState({
           crypto: {
