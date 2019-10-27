@@ -1,5 +1,4 @@
-
-export const config = {
+const config = {
   dashboard: {
     widgets: {
 
@@ -23,11 +22,12 @@ export const config = {
       },
 
       money: {
-        holdings: 'https://raw.githubusercontent.com/robrohan/react-home-dashboard/master/src/widgets/money/holdings.json'
+        holdings: 'https://raw.githubusercontent.com/robrohan/react-home-dashboard/master/static/money.json'
       },
 
       investments: {
-        holdings: 'https://raw.githubusercontent.com/robrohan/react-home-dashboard/master/src/widgets/investments/holdings.json'
+        holdings: 'https://raw.githubusercontent.com/robrohan/react-home-dashboard/master/static/investments.json',
+        currency: 'NZD'
       },
 
       soundcloud: {
@@ -36,6 +36,6 @@ export const config = {
 
     }
   }
-};
+}
 
 export default config;
