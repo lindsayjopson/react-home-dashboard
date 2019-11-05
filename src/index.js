@@ -14,7 +14,6 @@ import { DateTimeWidget } from "./widgets/datetime";
 import { SpendingWidget } from "./widgets/spending";
 import { ScheduleWidget, ScheduleDayWidget } from "./widgets/schedule";
 
-
 const App = () => {
   const store = createStore(rootReducer, Config);
 
