@@ -24,7 +24,7 @@
     "react-dom": "^16.9.0",
     "request": "^2.83.0",
     "sass": "^1.22.10",
-    "underscore": "^1.8.3",
+    "underscore": "^1.12.1",
     "victory": "^33.1.0"
   },
   "devDependencies": {
@@ -41,7 +41,7 @@
     "prettier": "^1.18.2",
     "request": "^2.83.0",
     "sass": "^1.22.10",
-    "underscore": "^1.8.3"
+    "underscore": "^1.12.1"
   },
   "browserslist": [
     "last 1 Chrome versions"
