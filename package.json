@@ -25,7 +25,7 @@
     "request": "^2.83.0",
     "sass": "^1.22.10",
     "underscore": "^1.8.3",
-    "victory": "^33.1.0"
+    "victory": "^36.6.8"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
